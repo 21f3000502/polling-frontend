@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Intervue Poll - Get Started</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white min-h-screen flex items-center justify-center">
+  <div class="w-full max-w-md mx-auto flex flex-col items-center">
+    <!-- Intervue Poll Badge -->
+    <div class="mt-8 mb-6">
+      <span class="inline-block bg-indigo-700 text-white text-xs font-medium px-4 py-1 rounded-full shadow-sm">✨ Intervue Poll</span>
+    </div>
+    <!-- Heading -->
+    <h1 class="text-3xl font-semibold text-gray-900 mb-2 text-center">Let's <span class="font-bold">Get Started</span></h1>
+    <!-- Subheading -->
+    <p class="text-gray-500 text-center mb-8 px-2">
+      If you're a student, you’ll be able to <span class="font-semibold text-gray-700">submit your answers</span>, participate in live polls, and see how your responses compare with your classmates
+    </p>
+    <!-- Form -->
+    <form class="w-full flex flex-col items-center">
+      <label for="name" class="block text-gray-700 text-sm mb-2 text-left w-full">Enter your Name</label>
+      <input
+        id="name"
+        type="text"
+        value="Rahul Bajaj"
+        class="w-full px-4 py-3 mb-6 bg-gray-100 rounded-md border border-gray-200 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-base"
+        readonly
+      />
+      <button
+        type="submit"
+        class="w-full py-3 rounded-full bg-indigo-500 hover:bg-indigo-600 text-white font-medium text-lg shadow transition"
+      >
+        Continue
+      </button>
+    </form>
+  </div>
+</body>
+</html>
