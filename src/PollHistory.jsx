@@ -12,43 +12,103 @@ export default function PollHistory() {
     return () => socket.off("poll_history");
   }, []);
 
+  // Helper to calculate percentage for each option
+  const getPercentages = (votes) => {
+    const total = votes.reduce((sum, v) => sum + v, 0);
+    return total === 0
+      ? votes.map(() => 0)
+      : votes.map((v) => Math.round((v / total) * 100));
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center pt-16">
-      <button
-        className="mb-8 bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-semibold shadow hover:bg-purple-200 transition"
-        onClick={() => navigate("/teacher/results")}
-      >
-        Back to Results
-      </button>
-      <div className="w-full max-w-2xl bg-white rounded-xl shadow-lg p-8">
-        <h1 className="text-2xl font-semibold mb-6">Poll History</h1>
+    <div className="bg-white min-h-screen flex flex-col items-center py-10">
+      <div className="w-full max-w-2xl">
+        <div className="w-full flex justify-between  ">
+          <h1 className="text-4xl font-light mb-8 text-purple-600">
+            View <span className="font-bold">Poll History</span>
+
+          </h1>
+          <a href="/teacher/create" className="bg-purple-600 text-lg text-white max-h-min p-2 rounded-sm font-semibold shadow transition hover:bg-purple-700" > + Ask a Question</a>
+        </div>
+
         {history.length === 0 ? (
-          <div className="text-gray-500">No polls yet.</div>
+          <div className="text-gray-500 text-center">No polls yet.</div>
         ) : (
-          <div className="space-y-8">
-            {history.map((poll, idx) => (
-              <div key={idx} className="border-b pb-6">
-                <div className="font-bold mb-2">{poll.question}</div>
-                <ul>
-                  {poll.options.map((opt, i) => (
-                    <li key={i} className="flex items-center mb-1">
-                      <span
-                        className={`inline-block w-2 h-2 rounded-full mr-2 ${
-                          poll.correctIndex === i
-                            ? "bg-green-500"
-                            : "bg-gray-300"
-                        }`}
-                      ></span>
-                      <span>{opt}</span>
-                      <span className="ml-auto font-mono text-gray-600">
-                        {poll.votes && poll.votes[i] ? poll.votes[i] : 0} votes
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+          history.map((poll, idx) => {
+            const percentages = getPercentages(poll.votes || []);
+            return (
+              <div key={idx} className="mb-10">
+                <h2 className="text-xl font-semibold mb-2">
+                  Question {idx + 1}
+                </h2>
+                <div className="bg-gray-700 rounded-t-lg p-4 text-white font-semibold">
+                  {poll.question}
+                </div>
+
+
+
+
+
+
+
+
+
+
+                <div className="border rounded-b-lg p-4 bg-white space-y-3">
+                  {poll.options.map((opt, i) => {
+                    const isCorrect = poll.correctIndex === i;
+                    let barBg = "";
+                    let numBg = "";
+                    let txtColor = "text-gray-900";
+                    if (isCorrect) {
+                      barBg = "bg-green-400 text-white";
+                      numBg = "bg-green-600 text-white border-2 border-green-500";
+                    } else if (i === 0) {
+                      barBg = "bg-purple-400 text-white";
+                      numBg = "bg-purple-600 text-white";
+                    } else if (i === 1) {
+                      barBg = "bg-purple-400 text-white";
+                      numBg = "bg-purple-500 text-white";
+                    } else if (i === 2) {
+                      barBg = "bg-purple-400 text-white";
+                      numBg = "bg-purple-500 text-white";
+                    } else {
+                      barBg = "bg-purple-400 text-white";
+                      numBg = "bg-purple-500 text-white";
+                    }
+                    return (
+                      <div className="mb-4" key={i}>
+                        <div className={`relative w-full h-12 rounded-lg border flex items-center overflow-hidden ${isCorrect ? "border-green-400" : "border-purple-200"}`}>
+                          <div
+                            className={`absolute left-0 top-0 h-full ${barBg} transition-all duration-500`}
+                            style={{
+                              width: `${percentages[i]}%`,
+                              zIndex: 0
+                            }}
+                          ></div>
+                          <span
+                            className={`flex items-center z-10 relative pl-4 font-semibold select-none ${txtColor}`}
+                            style={{ minWidth: 0, whiteSpace: "nowrap" }}
+                          >
+                            <span className={`w-7 h-7 flex items-center justify-center rounded-full mr-3 font-semibold ${numBg}`}>
+                              {i + 1}
+                            </span>
+                            <span className="truncate">{opt}</span>
+                          </span>
+                          <span className="absolute right-6 top-1/2 -translate-y-1/2 z-10 text-gray-800 font-bold text-xl select-none">
+                            {percentages[i]}%
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+
+
+                </div>
+
               </div>
-            ))}
-          </div>
+            );
+          })
         )}
       </div>
     </div>

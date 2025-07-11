@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import logo from "./assets/react.svg"
 
 export default function HomePage() {
   const [role, setRole] = useState("student");
@@ -19,7 +20,7 @@ export default function HomePage() {
             type="button"
             href="/"
           >
-            <img src="./src/assets/react.svg" alt="React logo" className="h-5 w-5" />
+            <img src={logo} alt="React logo" className="h-5 w-5" />
             <span>Intervue Poll</span>
           </a>
         </div>

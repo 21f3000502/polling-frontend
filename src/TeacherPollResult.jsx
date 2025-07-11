@@ -156,7 +156,7 @@ export default function TeacherPollResults() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center">
       {/* Centered View Poll History */}
-      <div className="flex justify-center w-full max-w-xl mx-auto pt-6">
+      <div className="flex max-w-xl pt-6 m-6 self-end ">
         <button
           className="flex items-center gap-2 bg-purple-200 text-purple-800 px-5 py-2 rounded-full font-medium shadow hover:bg-purple-300 transition w-full"
           onClick={handleViewHistory}
@@ -170,8 +170,8 @@ export default function TeacherPollResults() {
       </div>
       {/* Timer and Question label */}
       <div className="flex flex-row-reverse justify-between items-center w-full max-w-xl mb-2 mt-6">
-        <span className="text-sm font-semibold text-purple-700 flex items-center">
-          <svg className="w-5 h-5 text-purple-500 mr-2" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+        <span className="text-sm font-semibold text-red-500 flex items-center">
+          <svg className="w-5 h-5 text-red-500 mr-2" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth={2} fill="none" />
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" />
           </svg>
@@ -184,59 +184,58 @@ export default function TeacherPollResults() {
         <div className="font-medium text-white text-lg bg-gray-700 m-0 px-4 py-4 rounded-t-2xl">{poll.question}</div>
         <div className="rounded-md p-4 mb-4">
           {poll.options.map((opt, i) => {
-  const isCorrect = poll.correctIndex === i;
-  let barBg = "";
-  let numBg = "";
-  let txtColor = "text-gray-900";
-  if (isCorrect) {
-    barBg = "bg-green-300";
-    numBg = "bg-green-600 text-white border-2 border-green-500";
-  } else if (i === 0) {
-    barBg = "bg-purple-200";
-    numBg = "bg-purple-600 text-white";
-  } else if (i === 1) {
-    barBg = "bg-purple-100";
-    numBg = "bg-purple-500 text-white";
-  } else if (i === 2) {
-    barBg = "bg-yellow-100";
-    numBg = "bg-yellow-500 text-white";
-  } else {
-    barBg = "bg-gray-200";
-    numBg = "bg-gray-400 text-white";
-  }
-  return (
-    <div className="mb-4" key={i}>
-      <div className={`relative w-full h-12 rounded-lg border flex items-center overflow-hidden ${
-        isCorrect ? "border-green-400" : "border-purple-200"
-      }`}>
-        <div
-          className={`absolute left-0 top-0 h-full ${barBg} transition-all duration-500`}
-          style={{
-            width: `${votePercents[i]}%`,
-            zIndex: 0
-          }}
-        ></div>
-        <span
-          className={`flex items-center z-10 relative pl-4 font-semibold select-none ${txtColor}`}
-          style={{ minWidth: 0, whiteSpace: "nowrap" }}
-        >
-          <span className={`w-7 h-7 flex items-center justify-center rounded-full mr-3 font-semibold ${numBg}`}>
-            {i + 1}
-          </span>
-          <span className="truncate">{opt}</span>
-        </span>
-        <span className="absolute right-6 top-1/2 -translate-y-1/2 z-10 text-gray-800 font-bold text-xl select-none">
-          {votePercents[i]}%
-        </span>
-      </div>
-    </div>
-  );
-})
-}
+            const isCorrect = poll.correctIndex === i;
+            let barBg = "";
+            let numBg = "";
+            let txtColor = "text-gray-900";
+            if (isCorrect) {
+              barBg = "bg-green-400 text-white";
+              numBg = "bg-green-600 text-white border-2 border-green-500";
+            } else if (i === 0) {
+              barBg = "bg-purple-400 text-white";
+              numBg = "bg-purple-600 text-white";
+            } else if (i === 1) {
+              barBg = "bg-purple-400 text-white";
+              numBg = "bg-purple-500 text-white";
+            } else if (i === 2) {
+              barBg = "bg-purple-400 text-white";
+              numBg = "bg-purple-500 text-white";
+            } else {
+              barBg = "bg-purple-400 text-white";
+              numBg = "bg-purple-500 text-white";
+            }
+            return (
+              <div className="mb-4" key={i}>
+                <div className={`relative w-full h-12 rounded-lg border flex items-center overflow-hidden ${isCorrect ? "border-green-400" : "border-purple-200"
+                  }`}>
+                  <div
+                    className={`absolute left-0 top-0 h-full ${barBg} transition-all duration-500`}
+                    style={{
+                      width: `${votePercents[i]}%`,
+                      zIndex: 0
+                    }}
+                  ></div>
+                  <span
+                    className={`flex items-center z-10 relative pl-4 font-semibold select-none ${txtColor}`}
+                    style={{ minWidth: 0, whiteSpace: "nowrap" }}
+                  >
+                    <span className={`w-7 h-7 flex items-center justify-center rounded-full mr-3 font-semibold ${numBg}`}>
+                      {i + 1}
+                    </span>
+                    <span className="truncate">{opt}</span>
+                  </span>
+                  <span className="absolute right-6 top-1/2 -translate-y-1/2 z-10 text-gray-800 font-bold text-xl select-none">
+                    {votePercents[i]}%
+                  </span>
+                </div>
+              </div>
+            );
+          })
+          }
         </div>
       </div>
       {/* Ask a new question Button */}
-      <div className="flex justify-center mt-4 w-full max-w-xl">
+      <div className="flex-row text-center justify-center mt-4 w-full max-w-xl">
         <button
           className={`bg-purple-600 text-white px-6 py-2 rounded-full font-semibold shadow transition ${timer === 0 ? "hover:bg-purple-700" : "opacity-50 cursor-not-allowed"
             }`}
@@ -245,30 +244,32 @@ export default function TeacherPollResults() {
         >
           + Ask a new question
         </button>
+        <p className="text-sm text-gray-400 p-4 justify-center">The button will be enabled when the poll ends or when all students have submitted their answers.
+
+        </p>
       </div>
       {/* Floating Message Button (Bottom Right) */}
       <div className="fixed bottom-8 right-8 z-50">
         <button
-          className="flex items-center gap-2 px-5 py-3 bg-purple-600 text-white rounded-full shadow-lg hover:bg-purple-700 transition font-semibold text-base"
+          className="flex items-center gap-2 px-5 py-5 bg-purple-600 text-white rounded-full shadow-lg hover:bg-purple-800 transition font-semibold text-base"
           onClick={() => setChatOpen(true)}
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
               d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.77 9.77 0 01-4-.8L3 21l1.8-4A7.96 7.96 0 013 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
           </svg>
-          <span>Message</span>
         </button>
       </div>
       {/* Messaging/Participants Pane */}
       {chatOpen && (
         <div className="fixed bottom-28 right-8 w-96 max-w-full bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-200 z-50">
           {/* Header with Tabs */}
-          <div className="flex items-center justify-between bg-purple-600 px-4 py-3">
+          <div className="flex items-center justify-between bg-white rounded-x-xl rounded-t-xl border-gray-400 border-1 px-4 py-3">
             <div className="flex gap-4">
               <button
                 className={`font-semibold text-lg pb-1 focus:outline-none ${activeTab === "messages"
-                    ? "text-white border-b-2 border-white"
-                    : "text-purple-200"
+                  ? "text-gray-600 border-b-2 border-purple-600"
+                  : "text-gray-400"
                   }`}
                 onClick={() => setActiveTab("messages")}
               >
@@ -276,8 +277,8 @@ export default function TeacherPollResults() {
               </button>
               <button
                 className={`font-semibold text-lg pb-1 focus:outline-none ${activeTab === "participants"
-                    ? "text-white border-b-2 border-white"
-                    : "text-purple-200"
+                  ? "text-gray-600 border-b-2 border-purple-600"
+                  : "text-gray-400"
                   }`}
                 onClick={() => setActiveTab("participants")}
               >
@@ -285,7 +286,7 @@ export default function TeacherPollResults() {
               </button>
             </div>
             <button
-              className="text-white hover:text-purple-200 transition"
+              className="text-purple hover:text-purple-200 transition"
               onClick={() => setChatOpen(false)}
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -295,13 +296,14 @@ export default function TeacherPollResults() {
           </div>
           {/* Tab Content */}
           {activeTab === "messages" && (
+            
             <>
               <div
                 ref={messagesPaneRef}
                 className="flex flex-col gap-3 px-4 py-3 h-64 overflow-y-auto bg-gray-50"
               >
                 {messages.map((msg, idx) => {
-                  const isYou = msg.sender === "You";
+                  const isYou = msg.socketId === "You";
                   return (
                     <div
                       className={`flex items-start gap-2 ${isYou ? "justify-end" : ""}`}
@@ -313,9 +315,9 @@ export default function TeacherPollResults() {
                           {msg.sender}
                         </div>
                         <div
-                          className={`px-4 py-2 rounded-2xl max-w-[75%] ${isYou
-                              ? "bg-purple-600 text-white rounded-br-sm"
-                              : "bg-purple-100 text-purple-900 rounded-bl-sm"
+                          className={`px-4 py-2 rounded-2xl ${isYou
+                            ? "bg-purple-600 text-white rounded-br-sm"
+                            : "bg-purple-100 text-purple-900 rounded-bl-sm"
                             }`}
                         >
                           {msg.text}

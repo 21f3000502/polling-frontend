@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { socket } from "./socket";
+import logo from './assets/react.svg'
 
 const DEFAULT_TIMER = 60;
 const TIMER_OPTIONS = [60, 30, 90];
@@ -18,7 +19,7 @@ export default function TeacherPollForm() {
 
   useEffect(() => {
     socket.emit("teacher_signup", { name: "Teacher" });
-    socket.on("teacher_signed_up", () => {});
+    socket.on("teacher_signed_up", () => { });
     socket.on("new_poll", () => navigate("/teacher/results"));
     socket.on("error", (msg) => setError(msg));
     return () => {
@@ -76,9 +77,15 @@ export default function TeacherPollForm() {
         onSubmit={handleAskQuestion}
         autoComplete="off"
       >
-        <button className="bg-purple-700 text-white px-3 py-1 my-2 rounded-full text-xs font-semibold shadow hover:bg-purple-500 transition">
-          Intervue Poll
-        </button>
+        <a
+          className="flex items-center gap-2 px-4 py-2 my-2 w-40 bg-violet-600 text-white rounded-full shadow hover:bg-violet-700 transition"
+          type="button"
+          href="/"
+        >
+          <img src={logo} alt="React logo" className="h-5 w-5" />
+          <span>Intervue Poll</span>
+        </a>
+
         <h1 className="text-3xl font-semibold mb-2">
           Let’s <strong>Get Started</strong>
         </h1>
@@ -168,6 +175,7 @@ export default function TeacherPollForm() {
             Ask Question
           </button>
         </div>
+        
       </form>
     </div>
   );

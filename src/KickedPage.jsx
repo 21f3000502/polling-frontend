@@ -1,5 +1,5 @@
 // src/KickedPage.jsx
-import React from "react";
+import logo from './assets/react.svg'
 
 export default function KickedPage() {
   return (
@@ -11,7 +11,7 @@ export default function KickedPage() {
             type="button"
             href="/"
           >
-            <img src="./src/assets/react.svg" alt="React logo" className="h-5 w-5" />
+            <img src={logo} alt="React logo" className="h-5 w-5" />
             <span>Intervue Poll</span>
           </a>
         </div>

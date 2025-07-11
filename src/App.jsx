@@ -5,7 +5,7 @@ import TeacherPollResults from './TeacherPollResult.jsx';
 import StudentPage from './StudentPage.jsx';
 import PollHistory from './PollHistory.jsx';
 import KickedPage from './KickedPage.jsx';
-import EndPage from './EndPage.js';
+import EndPage from './EndPage.jsx';
 
 
 // Placeholder components for other routes
